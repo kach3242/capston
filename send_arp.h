@@ -45,5 +45,31 @@ struct tcp_header{
     uint16_t urg_pointer;
 };
 
+struct udp_header{
+    uint16_t sport;
+    uint16_t dport;
+    uint16_t length;
+    uint16_t checksum;
+};
 
-unsigned char* request(unsigned char *smac, uint32_t *sip, char *dip);
+struct dhcp_header{
+    uint8_t opcode;
+    uint8_t htype;
+    uint8_t h_add_len;
+    uint8_t hops;
+    uint32_t transid;
+    uint16_t secs;
+    uint16_t flags;
+    uint32_t cip;
+    uint32_t yip;
+    uint32_t sip;
+    uint32_t gip;
+    uint8_t cmac[6];
+    uint8_t padd[10];
+    uint8_t hostname[64];
+    uint8_t boot_file[128];
+    uint32_t mcookie;
+};
+
+unsigned char* request(unsigned char *smac, uint32_t *sip, uint32_t *dip);
+int dhcp(char *argv);

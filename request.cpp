@@ -10,7 +10,7 @@
 #include <unistd.h>
 #include "send_arp.h"
 
-unsigned char* request(unsigned char *smac, uint32_t *sip, char *dip) {
+unsigned char* request(unsigned char *smac, uint32_t *sip, uint32_t *dip) {
     struct eth_header eth;
     unsigned char* packet =(unsigned char *)calloc(42, sizeof(uint8_t));
     for(int i=0; i<6; i++) {
@@ -33,7 +33,7 @@ unsigned char* request(unsigned char *smac, uint32_t *sip, char *dip) {
         arp.smac[i] = smac[i];
         arp.dmac[i] = 0xff;
     }
-    arp.dip = inet_addr(dip);
+    arp.dip = *dip;
     memcpy(packet+14, &arp, sizeof(struct arp_header));
 
     return packet;
